@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  php:
+    build: .
+    container_name: php_app
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:8.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+volumes:
+  mongo_data:
